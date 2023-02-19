@@ -1,8 +1,10 @@
 use chrono::prelude::*;
 use uuid::Uuid;
 
+pub struct TimeEntryId(Uuid);
+
 pub struct TimeEntry {
-    pub id: Uuid,
+    pub id: TimeEntryId,
     pub start_time: DateTime<Local>,
     pub end_time: Option<DateTime<Local>>,
     pub name: String,
@@ -15,7 +17,7 @@ impl TimeEntry {
         end_time: Option<DateTime<Local>>,
     ) -> TimeEntry {
         TimeEntry {
-            id: Uuid::new_v4(),
+            id: TimeEntryId(Uuid::new_v4()),
             name,
             start_time,
             end_time,

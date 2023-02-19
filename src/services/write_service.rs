@@ -1,16 +1,21 @@
-use std::error::Error;
+use crate::{domain::DomainObject, infra::db_infra::Db, utils::app_results::AppResult};
 
-use crate::{
-    domain::{time_entry::TimeEntry, DomainObject},
-    infra::db_infra::Db,
-};
+pub struct WriteService<'a, TDb: Db> {
+    db: &'a TDb,
+}
 
-pub fn write_domain(db: &impl Db, domain_object: &DomainObject) -> Result<(), Box<dyn Error>> {
-    match domain_object {
-        DomainObject::TimeEntry(x) => db.send_query(get_time_entry_sql(x)),
+impl<'a, TDb: Db> WriteService<'a, TDb> {
+    pub fn new(db: &'a TDb) -> Self {
+        WriteService { db }
+    }
+
+    pub fn write(&self, domain_object: &DomainObject) -> AppResult {
+        match domain_object {
+            DomainObject::TimeEntry(x) => self.db.send_query("query".to_string()),
+        }
     }
 }
 
-fn get_time_entry_sql(time_entry: &TimeEntry) -> String {
+/* fn get_time_entry_sql(time_entry: &TimeEntry) -> String {
     "aaa".to_string()
-}
+} */
