@@ -1,1 +1,1 @@
-pub mod db_infra;
+pub mod db;

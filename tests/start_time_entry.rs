@@ -1,8 +1,16 @@
-use time_tracker::commands::start_time_entry::start_time_entry;
+use time_tracker::{infra::db::Db, utils::app_results::AppResult};
 
-/* #[test]
+struct TestDb {}
+
+impl Db for TestDb {
+    fn send_query(&self, query: String) -> AppResult {
+        AppResult::Unit(Ok(()))
+    }
+}
+
+#[test]
 fn it_should_create_time_entry() {
-    let entry = start_time_entry("Testa".to_string());
+    let commands = time_tracker::get_time_tracker(&TestDb {});
+    let entry = (commands.start_time_entry)("Testa".to_string());
     assert_eq!(entry.name, "Testa");
 }
- */

@@ -1,4 +1,4 @@
-use crate::{domain::DomainObject, infra::db_infra::Db, utils::app_results::AppResult};
+use crate::{domain::DomainObject, infra::db::Db, utils::app_results::AppResult};
 
 pub struct WriteService<'a, TDb: Db> {
     db: &'a TDb,

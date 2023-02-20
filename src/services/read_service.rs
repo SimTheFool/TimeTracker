@@ -1,4 +1,4 @@
-use crate::{infra::db_infra::Db, utils::app_results::AppResult};
+use crate::{infra::db::Db, utils::app_results::AppResult};
 
 pub struct ReadService<'a, TDb: Db> {
     db: &'a TDb,
