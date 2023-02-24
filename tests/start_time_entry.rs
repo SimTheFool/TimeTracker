@@ -1,16 +1,16 @@
-use time_tracker::{infra::db::Db, utils::app_results::AppResult};
+use crate::helpers::get_time_tracker;
 
-struct TestDb {}
-
-impl Db for TestDb {
-    fn send_query(&self, query: String) -> AppResult {
-        AppResult::Unit(Ok(()))
-    }
-}
+mod helpers;
 
 #[test]
 fn it_should_create_time_entry() {
-    let commands = time_tracker::get_time_tracker(&TestDb {});
-    let entry = (commands.start_time_entry)("Testa".to_string());
-    assert_eq!(entry.name, "Testa");
+    let (commands, queries) = get_time_tracker();
+    let test_entry_name = "Merge master".to_string();
+
+    (commands.start_time_entry)(test_entry_name);
+
+    let time_entries = (queries.get_daily_time_entries)();
+    let testa_entry = time_entries.iter().find(|e| e.name == test_entry_name);
+
+    assert!(testa_entry.is_some());
 }

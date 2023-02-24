@@ -9,7 +9,7 @@ impl<'a, TDb: Db> ReadService<'a, TDb> {
         ReadService { db }
     }
 
-    pub fn read(&self, query: String) -> AppResult {
+    pub fn read<T>(&self, query: String) -> AppResult<T> {
         self.db.send_query(query)
     }
 }

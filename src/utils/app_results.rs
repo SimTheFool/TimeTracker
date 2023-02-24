@@ -1,5 +1,3 @@
 use super::app_errors::AppError;
 
-pub enum AppResult {
-    Unit(Result<(), AppError>),
-}
+pub type AppResult<T> = Result<T, AppError>;
